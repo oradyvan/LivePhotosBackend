@@ -36,7 +36,8 @@ LIVE_PHOTOS = {
 def upload_photo(upfile):
 	# Calculate MD5 hash of the uploaded file before it is saved!
 	hash_value = calculate_file_hash(upfile)
-	return "Got this: " + upfile.filename + ", hash value: " + hash_value
+	identifier = make_asset_identifier(hash_value)
+	return "File: %s, Asset identifier: %s" % (upfile.filename, identifier)
 
 def read_all():
     """
