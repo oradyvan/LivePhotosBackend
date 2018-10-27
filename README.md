@@ -12,4 +12,4 @@ The work is still in progress, the services are NOT yet ready, so please use at 
 
 ## Debug on Your Machine
 
-This step is as simple as issuing console command `python server.py`. Then, you can navigate to http://localhost:5000 in your web browser.
+This step is as simple as issuing console command `python server.py`. Then, you can navigate to Swagger UI at URL http://localhost:5000/photos/ui/ in your web browser.
