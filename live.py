@@ -2,17 +2,11 @@
 This is the Live Photos module supporting all the ReST actions
 """
 
-# System modules
-from datetime import datetime
+# App modules
+from utils import *
 
 # 3rd party modules
 from flask import make_response, abort
-import hashlib, base64
-
-
-def get_timestamp():
-    return datetime.now().strftime(("%Y-%m-%dT%H:%M:%S"))
-
 
 # Data to serve with our API
 LIVE_PHOTOS = {
@@ -41,17 +35,8 @@ LIVE_PHOTOS = {
 
 def upload_photo(upfile):
 	# Calculate MD5 hash of the uploaded file before it is saved!
-	BLOCK_SIZE = 65536
-	hasher = hashlib.md5()
-	buffer = upfile.read(BLOCK_SIZE)
-	while len(buffer) > 0:
-		hasher.update(buffer)
-		buffer = upfile.read(BLOCK_SIZE)
-    # Calculate Hash Value according to the algorithm as described in
-    # https://docs.google.com/document/d/1vgjl_n6gpC4nHcHcjDLqI39CXl5NlPIDlknESW6W2YU/edit#heading=h.pd228uq40hwp
-	first_conversion = base64.standard_b64encode(hasher.digest())
-	hash_value = str(base64.standard_b64encode(first_conversion))
-	return "Got this: " + upfile.filename + ", MD5 hash: " + hasher.hexdigest() + ", hash value: " + hash_value
+	hash_value = calculate_file_hash(upfile)
+	return "Got this: " + upfile.filename + ", hash value: " + hash_value
 
 def read_all():
     """
